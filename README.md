@@ -1,5 +1,5 @@
 
-# CloudAuthSystem
+# CloudAuthSystem - From Scratch 🤩
 
 A Spring Boot-based authentication and authorization system with JWT (JSON Web Token) for secure user login, registration, and profile management, now with a React frontend UI.
 
