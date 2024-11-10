@@ -5,11 +5,19 @@ import org.example.cloudauthsystem.models.User;
 import org.example.cloudauthsystem.repositories.UserRepository;
 import org.example.cloudauthsystem.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -38,11 +46,12 @@ public class AuthController {
                             loginRequest.getPassword()
                     )
             );
-            return "Authenticated successfully";
+            return jwtUtil.generateToken(loginRequest.getUsername());
         } catch (AuthenticationException e) {
             return "Error: Invalid credentials";
         }
     }
+
     @PostMapping("/register")
     public String registerUser(@RequestBody LoginRequest loginRequest) {
         if (userRepository.findByUsername(loginRequest.getUsername()).isPresent()) {
@@ -60,6 +69,18 @@ public class AuthController {
 
         return "User registered successfully";
     }
+    @GetMapping("/profile")
+    public ResponseEntity<Map<String, String>> getUserProfile() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        if (authentication != null && authentication.getPrincipal() instanceof UserDetails) {
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            Map<String, String> profile = new HashMap<>();
+            profile.put("username", userDetails.getUsername());
+            return ResponseEntity.ok(profile);
+        } else {
+            return ResponseEntity.status(401).body(Map.of("error", "User not authenticated"));
+        }
+    }
 
 }
