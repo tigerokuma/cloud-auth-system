@@ -1,21 +1,23 @@
+
 # CloudAuthSystem
 
-A Spring Boot-based authentication and authorization system with JWT (JSON Web Token) for secure user login and profile management.
+A Spring Boot-based authentication and authorization system with JWT (JSON Web Token) for secure user login, registration, and profile management, now with a React frontend UI.
 
 ## Overview
 
-This project implements a simple authentication system that allows users to register, log in, and access a protected profile endpoint. It uses **JWT** for stateless, secure authentication and **Spring Security** for configuring access control.
+This project implements a simple authentication system that allows users to register, log in, and access a protected profile endpoint. It uses **JWT** for stateless, secure authentication, **Spring Security** for configuring access control, and a **React** frontend for a user-friendly interface.
 
 ### Features
 - **User Registration:** Allows users to register with a unique username and password.
 - **User Login:** Authenticates users and returns a JWT on successful login.
 - **Protected Profile Access:** Uses the JWT to access a protected endpoint that displays the user's profile.
+- **React Frontend with UI Animation:** Provides a simple, interactive interface with animated success messages and a “happy clacker” background animation upon login success.
 
 ## System Architecture
 
 The architecture of this application is divided into three main layers:
 
-1. **User Client (Frontend/Client)**: The user interacts with the application by sending HTTP requests for registration, login, and profile access.
+1. **User Client (Frontend/Client)**: The user interacts with the application through a React frontend for registration, login, and profile access.
 2. **Server (Backend)**: Handles requests, manages user authentication, and generates/validates JWTs.
 3. **Data Layer**: Manages data persistence using a database to store user details.
 
@@ -111,6 +113,16 @@ src
 │   │           └── JwtUtil.java
 │   └── resources
 │       └── application.properties
+├── frontend
+│   ├── public
+│   │   └── index.html
+│   └── src
+│       ├── App.js
+│       ├── components
+│       │   ├── Login.js
+│       │   └── SignUp.js
+│       └── styles
+│           └── App.css
 └── test
 ```
 
@@ -122,6 +134,7 @@ src
 4. **JwtUtil**: Utility for generating and validating JWTs.
 5. **CustomUserDetailsService**: Loads user details for authentication and authorization.
 6. **UserRepository**: Interfaces with the database to store and retrieve user details.
+7. **React Frontend**: A responsive UI that allows users to interact with the application for registration, login, and profile access.
 
 ## How to Run the Application
 
@@ -134,15 +147,25 @@ src
 2. **Configure the Database**:
    Update `src/main/resources/application.properties` with your database credentials.
 
-3. **Run the Application**:
+3. **Run the Backend Server**:
    ```bash
    ./mvnw spring-boot:run
    ```
 
-4. **Access Endpoints**:
-   - Register: `POST /api/auth/register`
-   - Login: `POST /api/auth/login`
-   - Profile: `GET /api/auth/profile` (Requires JWT in the Authorization header)
+4. **Install Frontend Dependencies**:
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+5. **Run the Frontend**:
+   ```bash
+   npm start
+   ```
+
+6. **Access Endpoints**:
+   - Frontend: `http://localhost:3000`
+   - Backend: `http://localhost:8080`
 
 ## Usage Example in Postman
 
@@ -181,6 +204,17 @@ src
      ```plaintext
      Authorization: Bearer your-jwt-token
      ```
+
+## Screenshots
+
+### UI Home
+*Place an image here showing the main login page*
+
+### Registration Page
+*Place an image here showing the registration form*
+
+### Login Success Animation
+*Place an image or gif of the happy clacker background animation on successful login*
 
 ## License
 
