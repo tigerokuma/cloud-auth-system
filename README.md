@@ -138,6 +138,23 @@ src
 6. **UserRepository**: Interfaces with the database to store and retrieve user details.
 7. **React Frontend**: A responsive UI that allows users to interact with the application for registration, login, and profile access.
 
+## Database Setup
+
+Before running the application, ensure that you have an SQL database running, as this system relies on a database to store user information.
+
+1. **Create a Database**: Set up an SQL database of your choice (e.g., MySQL, PostgreSQL).
+2. **Configure Database Credentials**: Update the database connection properties in `src/main/resources/application.properties`:
+
+   ```properties
+   spring.datasource.url=jdbc:mysql://localhost:3306/cloudauth
+   spring.datasource.username=your_db_username
+   spring.datasource.password=your_db_password
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.show-sql=true
+   ```
+
+3. **Run Database Migrations** (if applicable): Run any required migrations to initialize the database schema.
+
 ## How to Run the Application
 
 1. **Clone the repository**:
@@ -146,26 +163,23 @@ src
    cd cloudauthsystem
    ```
 
-2. **Configure the Database**:
-   Update `src/main/resources/application.properties` with your database credentials.
-
-3. **Run the Backend Server**:
+2. **Run the Backend Server**:
    ```bash
    ./mvnw spring-boot:run
    ```
 
-4. **Install Frontend Dependencies**:
+3. **Install Frontend Dependencies**:
    ```bash
    cd frontend
    npm install
    ```
 
-5. **Run the Frontend**:
+4. **Run the Frontend**:
    ```bash
    npm start
    ```
 
-6. **Access Endpoints**:
+5. **Access Endpoints**:
    - Frontend: `http://localhost:3000`
    - Backend: `http://localhost:8080`
 
@@ -206,17 +220,6 @@ src
      ```plaintext
      Authorization: Bearer your-jwt-token
      ```
-
-## Screenshots
-
-### UI Home
-*Place an image here showing the main login page*
-
-### Registration Page
-*Place an image here showing the registration form*
-
-### Login Success Animation
-*Place an image or gif of the happy clacker background animation on successful login*
 
 ## License
 
